@@ -41,13 +41,13 @@ class OfertaController extends Controller
             'precio_descuento' => 'required|numeric',
         ]);
 
-        $oferta = new Oferta();
-        $oferta->titulo = $request->titulo;
-        $oferta->vigencia = $request->vigencia;
-        $oferta->tienda = $request->tienda;
-        $oferta->precio_original = $request->precio_original;
-        $oferta->precio_descuento = $request->precio_descuento;
-        $oferta->save();
+        Oferta::create($request->validate([
+            'titulo' => 'required|string|max:255',
+            'vigencia' => 'required|date',
+            'tienda' => 'required|string|max:255',
+            'precio_original' => 'required|numeric',
+            'precio_descuento' => 'required|numeric',
+        ]));
 
         return redirect()->route('ofertas.index')->with('success', 'Oferta creada exitosamente.');
     }
@@ -83,13 +83,14 @@ class OfertaController extends Controller
             'precio_descuento' => 'required|numeric',
         ]);
 
-        $oferta = Oferta::findOrFail($id);
-        $oferta->titulo = $request->input('titulo');
-        $oferta->vigencia = $request->input('vigencia');
-        $oferta->tienda = $request->input('tienda');
-        $oferta->precio_original = $request->input('precio_original');
-        $oferta->precio_descuento = $request->input('precio_descuento');
-        $oferta->save();
+$oferta = Oferta::findOrFail($id);
+        $oferta->update($request->validate([
+            'titulo' => 'required|string|max:255',
+            'vigencia' => 'required|date',
+            'tienda' => 'required|string|max:255',
+            'precio_original' => 'required|numeric',
+            'precio_descuento' => 'required|numeric',
+        ]));
 
         return redirect()->route('ofertas.index')->with('success', 'Oferta actualizada exitosamente.');
     }

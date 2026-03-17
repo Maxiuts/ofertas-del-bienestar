@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nueva Oferta</title>
-    @vite('resources/css/app.css')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gray-100 min-h-screen">
@@ -20,14 +20,23 @@
     <form action="{{ route('ofertas.store') }}" method="POST" class="bg-white p-6 rounded-xl shadow space-y-4">
         @csrf
 
-        <input type="text" name="titulo" placeholder="Título"
-               class="w-full border p-2 rounded">
+        <input type="text" name="titulo" placeholder="Título" value="{{ old('titulo') }}"
+               class="w-full border p-2 rounded @error('titulo') border-red-500 @enderror">
+        @error('titulo')
+            <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
 
-        <input type="date" name="vigencia"
-               class="w-full border p-2 rounded">
+        <input type="date" name="vigencia" value="{{ old('vigencia') }}"
+               class="w-full border p-2 rounded @error('vigencia') border-red-500 @enderror">
+        @error('vigencia')
+            <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
 
-        <input type="text" name="tienda" placeholder="Tienda"
-               class="w-full border p-2 rounded">
+        <input type="text" name="tienda" placeholder="Tienda" value="{{ old('tienda') }}"
+               class="w-full border p-2 rounded @error('tienda') border-red-500 @enderror">
+        @error('tienda')
+            <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
 
         <input type="number" step="0.01" name="precio_original" placeholder="Precio original"
                class="w-full border p-2 rounded">
