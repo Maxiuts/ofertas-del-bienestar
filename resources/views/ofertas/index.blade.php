@@ -16,7 +16,7 @@
                 Lista de Ofertas 🚀
             </h1>
 
-            <a href="/ofertas/create"
+            <a href="{{ route('ofertas.create') }}"
                class="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition">
                 + Nueva Oferta
             </a>
@@ -42,17 +42,17 @@
                     <!-- Acciones -->
                     <div class="flex gap-2">
 
-                        <a href="/ofertas/{{ $oferta->id }}"
+                        <a href="{{ route('ofertas.show', $oferta->id) }}"
                            class="px-3 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
                             Ver
                         </a>
 
-                        <a href="/ofertas/{{ $oferta->id }}/edit"
+                        <a href="{{ route('ofertas.edit', $oferta->id) }}"
                            class="px-3 py-1 text-sm bg-yellow-400 text-white rounded hover:bg-yellow-500">
                             Editar
                         </a>
 
-                        <form action="/ofertas/{{ $oferta->id }}" method="POST">
+                        <form action="{{ route('ofertas.destroy', $oferta->id) }}" method="POST" onsubmit="event.preventDefault(); confirmarEliminacion(this);">
                             @csrf
                             @method('DELETE')
 
@@ -73,7 +73,7 @@
                         No hay ofertas registradas 😢
                     </p>
 
-                    <a href="/ofertas/create"
+                    <a href="{{ route('ofertas.create') }}"
                        class="inline-block mt-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
                         Crear primera oferta
                     </a>
@@ -84,6 +84,24 @@
         </div>
 
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmarEliminacion(form) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Esta acción no se puede deshacer",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#e3342f',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+}
+</script>
 </body>
 </html>
