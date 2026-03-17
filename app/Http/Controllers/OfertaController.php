@@ -9,6 +9,8 @@ class OfertaController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    //terminada
     public function index()
     {
         // Obtener todas las ofertas de la base de datos
@@ -40,10 +42,12 @@ class OfertaController extends Controller
         ]);
 
         $oferta = new Oferta();
-        $oferta->titulo = $request->input('titulo');
-        $oferta->vigencia = $request->input('vigencia');
-        $oferta->tienda = $request->input('tienda');
-        $oferta->precio_original = $request->input('precio_original');
+        $oferta->titulo = $request->titulo;
+        $oferta->vigencia = $request->vigencia;
+        $oferta->tienda = $request->tienda;
+        $oferta->precio_original = $request->precio_original;
+        $oferta->precio_descuento = $request->precio_descuento;
+        $oferta->save();
 
         return redirect()->route('ofertas.index')->with('success', 'Oferta creada exitosamente.');
     }
@@ -93,6 +97,7 @@ class OfertaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    //terminada
     public function destroy(string $id)
     {
         $oferta = Oferta::findOrFail($id);
