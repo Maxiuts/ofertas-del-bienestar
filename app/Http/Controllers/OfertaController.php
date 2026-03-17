@@ -11,7 +11,11 @@ class OfertaController extends Controller
      */
     public function index()
     {
-        //
+        // Obtener todas las ofertas de la base de datos
+        $ofertas = Oferta::all();
+
+        // Retornar una vista llamada 'ofertas.index' con los datos
+        return view('ofertas.index', compact('ofertas'));
     }
 
     /**
