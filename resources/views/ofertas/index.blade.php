@@ -1,7 +1,89 @@
-<h1>Lista de Ofertas</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ofertas</title>
+    @vite('resources/css/app.css')
+</head>
 
-<ul>
-    @foreach($ofertas as $oferta)
-        <li>{{ $oferta->titulo ?? 'Sin título' }}</li>
-    @endforeach
-</ul>
+<body class="bg-gray-100 min-h-screen">
+
+    <div class="max-w-5xl mx-auto py-10 px-4">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">
+                Lista de Ofertas 🚀
+            </h1>
+
+            <a href="/ofertas/create"
+               class="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                + Nueva Oferta
+            </a>
+        </div>
+
+        <!-- Lista -->
+        <div class="grid gap-4">
+
+            @forelse($ofertas as $oferta)
+                <div class="bg-white p-5 rounded-xl shadow hover:shadow-md transition flex justify-between items-center">
+
+                    <!-- Info -->
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-800">
+                            {{ $oferta->titulo ?? 'Sin título' }}
+                        </h2>
+
+                        <p class="text-sm text-gray-500">
+                            ID: {{ $oferta->id }}
+                        </p>
+                    </div>
+
+                    <!-- Acciones -->
+                    <div class="flex gap-2">
+
+                        <a href="/ofertas/{{ $oferta->id }}"
+                           class="px-3 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
+                            Ver
+                        </a>
+
+                        <a href="/ofertas/{{ $oferta->id }}/edit"
+                           class="px-3 py-1 text-sm bg-yellow-400 text-white rounded hover:bg-yellow-500">
+                            Editar
+                        </a>
+
+                        <form action="/ofertas/{{ $oferta->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                class="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600">
+                                Eliminar
+                            </button>
+                        </form>
+
+                    </div>
+
+                </div>
+            @empty
+
+                <!-- Empty state -->
+                <div class="bg-white p-10 rounded-xl shadow text-center">
+                    <p class="text-gray-500 text-lg">
+                        No hay ofertas registradas 😢
+                    </p>
+
+                    <a href="/ofertas/create"
+                       class="inline-block mt-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
+                        Crear primera oferta
+                    </a>
+                </div>
+
+            @endforelse
+
+        </div>
+
+    </div>
+
+</body>
+</html>
