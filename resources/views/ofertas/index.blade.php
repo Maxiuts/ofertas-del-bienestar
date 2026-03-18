@@ -30,6 +30,14 @@
 
                     <!-- Info -->
                     <div>
+                        @php
+                            $isActive = $oferta->vigencia >= now()->format('Y-m-d');
+                        @endphp
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-medium mb-2
+                            {{ $isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            {{ $isActive ? '🟢 Activa' : '🔴 Inactiva' }}
+                        </span>
+
                         <h2 class="text-lg font-semibold text-gray-800">
                             {{ $oferta->titulo ?? 'Sin título' }}
                         </h2>
